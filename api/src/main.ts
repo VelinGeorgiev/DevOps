@@ -45,7 +45,7 @@ server.get('/', (req: any, res: any, next: any) => {
 
   console.log(req);
 
-  res.send(200, 'TEST: Try: curl -isS -X GET http://<SITE_URL>/api');
+  res.send(200, 'TEST 123: Try: curl -isS -X GET http://<SITE_URL>/api');
   next();
 });
 
