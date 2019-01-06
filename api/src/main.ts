@@ -41,19 +41,16 @@ server.use(restifyPlugins.authorizationParser());
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.get('/', (req: any, res: any, next: any) => {
+server.get('/', (_: any, res: any, next: any) => {
 
-  console.log(req);
+  res.json({ message: 'Hello from Node.js API!' });
 
-  res.send(200, 'TEST 123: Try: curl -isS -X GET http://<SITE_URL>/api');
   next();
 });
 
-server.get('/api', passport.authenticate('oauth-bearer', { session: false }), (req: any, res: any, next: any): any => {
-  
-  console.log(req);
+server.get('/api/secured', passport.authenticate('oauth-bearer', { session: false }), (_: any, res: any, next: any): any => {
 
-  res.json({ message: 'response from API endpoint' });
+  res.json({ message: 'Secure response from Node.js API endpoint' });
 
   return next();
 });
@@ -61,3 +58,5 @@ server.get('/api', passport.authenticate('oauth-bearer', { session: false }), (r
 server.listen(process.env.PORT || 3000);
 
 console.log('Server running http://localhost:3000');
+
+export default server;
