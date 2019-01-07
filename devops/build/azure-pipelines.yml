@@ -54,6 +54,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/spfx/devops/release/'
+    pathtoPublish: '$(Build.SourcesDirectory)/devops/release'
     artifactName: 'Office 365 CLI scripts' 
   displayName: 'Publish Office 365 CLI scripts'
