@@ -2,7 +2,7 @@ SITE_URL=$1
 EMAIL=$2
 PASS=$3
 
-npm i -g @pnp/office365-cli@1.11.0
+npm i -g @pnp/office365-cli
 o365 version
 
 # you have to run "o365 spo login https://contoso.sharepoint.com"
