@@ -15,29 +15,29 @@ steps:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
-- script: |
-    cd api
-    npm install
-    npm run build
-  displayName: 'Node.js API npm install and build'
+# - script: |
+#     cd api
+#     npm install
+#     npm run build
+#   displayName: 'Node.js API npm install and build'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/api/build/src' 
-    artifactName: 'Publish Node API' 
-  displayName: 'Publish Node API source'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.SourcesDirectory)/api/build/src' 
+#     artifactName: 'Publish Node API' 
+#   displayName: 'Publish Node API source'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/api/web.config' 
-    artifactName: 'Publish Node API' 
-  displayName: 'Publish Node API config'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.SourcesDirectory)/api/web.config' 
+#     artifactName: 'Publish Node API' 
+#   displayName: 'Publish Node API config'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/api/package.json' 
-    artifactName: 'Publish Node API' 
-  displayName: 'Publish Node API package.json'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.SourcesDirectory)/api/package.json' 
+#     artifactName: 'Publish Node API' 
+#   displayName: 'Publish Node API package.json'
 
 - script: |
     cd spfx
