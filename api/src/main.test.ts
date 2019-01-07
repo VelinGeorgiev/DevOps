@@ -2,7 +2,7 @@
 import * as request from 'supertest';
 import server from "../src/main";
 
-describe('greeter function', () => {
+describe('Node.js API tests', () => {
 
   afterAll(()=> {
     require('../src/main').stop();
