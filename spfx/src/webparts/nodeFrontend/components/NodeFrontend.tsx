@@ -4,38 +4,69 @@ import { INodeFrontendProps } from './INodeFrontendProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
 import { AadTokenProvider } from '@microsoft/sp-http';
+import { INodeFrontendState } from './INodeFrontendState';
 
-export default class NodeFrontend extends React.Component<INodeFrontendProps, {}> {
+export default class NodeFrontend extends React.Component<INodeFrontendProps, INodeFrontendState> {
 
-  public componentDidMount() {
-    
-    this.props.aadTokenProvider
-    .getTokenProvider()
-    .then((tokenProvider: AadTokenProvider): Promise<string> => {
-      // retrieve access token for the enterprise API secured with Azure AD
-      return tokenProvider.getToken('74f4223e-fb8a-499f-b851-2ae8c72553fa');
-    })
-    .then((accessToken: string): void => {
-        console.log(accessToken);
-    });
+  constructor(props: INodeFrontendProps) {
+    super(props);
+
+    this.state = {
+      apiResponseMessage: ''
+    };
   }
 
   public render(): React.ReactElement<INodeFrontendProps> {
     return (
-      <div className={ styles.nodeFrontend }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.description)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-              </a>
+      <div className={styles.nodeFrontend}>
+        <div className={styles.container}>
+          <div className={styles.row}>
+            <div className={styles.column}>
+              <span className={styles.title}>Welcome to SharePoint!</span>
+              <p className={styles.description}>{escape(this.props.description)}</p>
+
+              <button className={styles.button} id="buyButton" onClick={this.getApiResponseMessage.bind(this)}>
+                Reqeust message from the Node.js server.
+              </button>
+
+              {this.state.apiResponseMessage && <h2>{this.state.apiResponseMessage}</h2>}
             </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  public getApiResponseMessage(): void {
+
+    this.props.aadTokenProvider
+      .getTokenProvider()
+      .then((tokenProvider: AadTokenProvider): Promise<string> => {
+
+        // retrieve access token for the enterprise API secured with Azure AD
+        return tokenProvider.getToken('74f4223e-fb8a-499f-b851-2ae8c72553fa');
+      })
+      .then((accessToken: string): void => {
+
+        console.log(accessToken);
+
+        fetch('http://nodesharepointapi.azurewebsites.net/api/secured', {
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
+          },
+        })
+          .then(response => response.json())
+          .then((responseJson) => {
+
+            console.log(JSON.stringify(responseJson));
+
+            this.setState((state: INodeFrontendState): INodeFrontendState => {
+              state.apiResponseMessage = JSON.stringify(responseJson);
+              return state;
+            });
+          });
+      });
   }
 }

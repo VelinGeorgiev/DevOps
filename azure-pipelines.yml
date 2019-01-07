@@ -19,8 +19,7 @@ steps:
     cd api
     npm install
     npm run build
-  displayName: 'npm install and build'
-
+  displayName: 'Node.js API npm install and build'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -39,3 +38,22 @@ steps:
     pathtoPublish: '$(Build.SourcesDirectory)/api/package.json' 
     artifactName: 'Publish Node API' 
   displayName: 'Publish Node API config'
+
+- script: |
+    cd spfx
+    npm install
+    gulp bundle --ship
+    gulp package-solution --ship
+  displayName: 'SPFx npm install and build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.SourcesDirectory)/spfx/sharepoint/solution/node-frontend.sppkg' 
+    artifactName: 'SPFx solution' 
+  displayName: 'Publish SPFx web part'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.SourcesDirectory)/spfx/devops/release/'
+    artifactName: 'Office 365 CLI scripts' 
+  displayName: 'Publish Office 365 CLI scripts'

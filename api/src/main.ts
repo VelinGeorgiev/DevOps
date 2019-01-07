@@ -1,7 +1,3 @@
-// https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v1-nodejs-webapi
-// https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs
-// https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-rm-web-app-deployment?view=vsts
-
 import * as passport from "passport";
 import { BearerStrategy } from "passport-azure-ad";
 import * as restify from "restify";
@@ -19,6 +15,8 @@ const authenticatedUserTokens = [];
 
 const authenticationStrategy = new BearerStrategy(credentials, (token: any, done: Function) => {
   
+  console.log('authenticationStrategy');
+
   let currentUser;
 
   const userToken: any = authenticatedUserTokens.find((user: any): boolean => {
@@ -31,6 +29,8 @@ const authenticationStrategy = new BearerStrategy(credentials, (token: any, done
       authenticatedUserTokens.push(token);
   }
 
+  console.log(authenticatedUserTokens);
+  
   return done(null, currentUser, token);
 });
 
@@ -50,6 +50,9 @@ server.get('/', (_: any, res: any, next: any) => {
 
 server.get('/api/secured', passport.authenticate('oauth-bearer', { session: false }), (_: any, res: any, next: any): any => {
 
+  console.log(_);
+  console.log('-----');
+  console.log(res);
   res.json({ message: 'Secure response from Node.js API endpoint' });
 
   return next();
@@ -59,4 +62,10 @@ server.listen(process.env.PORT || 3000);
 
 console.log('Server running http://localhost:3000');
 
+const stop = (): void => {
+  server.close();
+  console.log('Server closed');
+}
+
 export default server;
+module.exports.stop = stop;

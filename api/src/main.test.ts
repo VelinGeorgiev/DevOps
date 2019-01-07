@@ -11,30 +11,45 @@ describe('greeter function', () => {
   //let hello: string;
 
   // Act before assertions
-  beforeAll(async () => {
+  beforeAll(() => {
     //const p: Promise<string> = greeter(name);
     //jest.runOnlyPendingTimers();
     //hello = await p;
   });
 
-  it('delays the greeting by 2 seconds', (done: any) => {
+  afterAll(()=> {
+    require('../src/main').stop();
+    // server.close(()=>{
+
+    //   console.log('HTTP server is successfully shutdown.');
+    //   done();
+    // });
+  })
+
+  it('server successfully calls "/" path', (done: any) => {
 
     request(server).get('/').then((res: any) => {
 
-      expect(res.status).toEqual(300);
-      done();
-
-    }).catch((err: any) => {
-
-      done.fail(new Error(err));
+      expect(res.status).toEqual(200);
       done();
 
     });
   });
 
   // Assert greeter result
-  it('greets a user with message', () => {
-    expect(1).toBe(1);
+  it('greets a user with message', (done: any) => {
+    const authenticatedRequest = request.agent();
+
+    authenticatedRequest
+      .post('')
+      .send()
+      .end();
+
+      request(server).get('/').then((res: any) => {
+
+        expect(res.status).toEqual(200);
+        done();
+      });
   });
 
   it('greets a user with message 1', () => {

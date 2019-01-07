@@ -22,6 +22,7 @@
     "no-default-export": false,
     "no-implicit-dependencies":false,
     "no-backbone-get-set-outside-model":false,
+    "no-require-imports":false,
     "typedef": [
       true,
       "parameter",
