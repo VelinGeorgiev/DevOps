@@ -50,7 +50,7 @@ export default class NodeFrontend extends React.Component<INodeFrontendProps, IN
 
         console.log(accessToken);
 
-        fetch('http://nodesharepointapi.azurewebsites.net/api/secured', {
+        fetch('https://nodesharepointapi.azurewebsites.net/api/secured', {
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
