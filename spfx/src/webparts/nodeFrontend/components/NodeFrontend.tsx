@@ -3,7 +3,7 @@ import styles from './NodeFrontend.module.scss';
 import { INodeFrontendProps } from './INodeFrontendProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-import { AadTokenProvider } from '@microsoft/sp-http';
+//import { AadTokenProvider } from '@microsoft/sp-http';
 import { INodeFrontendState } from './INodeFrontendState';
 
 export default class NodeFrontend extends React.Component<INodeFrontendProps, INodeFrontendState> {
@@ -18,11 +18,11 @@ export default class NodeFrontend extends React.Component<INodeFrontendProps, IN
 
   public render(): React.ReactElement<INodeFrontendProps> {
     return (
-      <div className={styles.nodeFrontend}>
+      <div className={styles.nodeFrontend} id='nodeFrontend'>
         <div className={styles.container}>
           <div className={styles.row}>
             <div className={styles.column}>
-              <span className={styles.title}>Welcome to SharePoint!</span>
+              <h1 className={styles.title}>Welcome to SharePoint!</h1>
               <p className={styles.description}>{escape(this.props.description)}</p>
 
               <button className={styles.button} id="buyButton" onClick={this.getApiResponseMessage.bind(this)}>
@@ -41,7 +41,7 @@ export default class NodeFrontend extends React.Component<INodeFrontendProps, IN
 
     this.props.aadTokenProvider
       .getTokenProvider()
-      .then((tokenProvider: AadTokenProvider): Promise<string> => {
+      .then((tokenProvider: any): Promise<string> => {
 
         // retrieve access token for the enterprise API secured with Azure AD
         return tokenProvider.getToken('74f4223e-fb8a-499f-b851-2ae8c72553fa');

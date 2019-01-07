@@ -19,6 +19,7 @@ steps:
     cd api
     npm install
     npm run build
+    npm test
   displayName: 'Node.js API npm install and build'
 
 - task: PublishBuildArtifacts@1
@@ -44,6 +45,7 @@ steps:
     npm install
     gulp bundle --ship
     gulp package-solution --ship
+    npm test
   displayName: 'SPFx npm install and build'
 
 - task: PublishBuildArtifacts@1
@@ -57,3 +59,9 @@ steps:
     pathtoPublish: '$(Build.SourcesDirectory)/devops/release'
     artifactName: 'Office 365 CLI scripts' 
   displayName: 'Publish Office 365 CLI scripts'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit
+    testResultsFiles: '$(Build.SourcesDirectory)/api/coverage/summary-jest-junit.xml'
+  displayName: 'Publish test results'
