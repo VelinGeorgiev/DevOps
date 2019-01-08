@@ -43,15 +43,13 @@ server.use(passport.session());
 
 server.get('/', (_: any, res: any, next: any) => {
 
-  res.json({ message: 'Hello from Node.js API!' });
+  res.json({ message: 'Hello from Node.js API v1!' });
 
   next();
 });
 
 server.get('/api/secured', passport.authenticate('oauth-bearer', { session: false }), (_: any, res: any, next: any): any => {
 
-  console.log(_);
-  console.log('-----');
   console.log(res);
   res.json({ message: 'Secure response from Node.js API endpoint' });
 
