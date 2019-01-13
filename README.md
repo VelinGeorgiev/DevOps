@@ -1,3 +1,12 @@
+# Azure DevOps with SharePoint Framework 
+
+The current sample includes node.js api and SPFx package to be deployed using Azure pipelines.
+You can get started with this video. 
+
+[![Community Demo - Setting up Azure DevOps Pipelines for SharePoint Framework solutions](https://img.youtube.com/vi/V6xEy6_2iTg/0.jpg)](https://www.youtube.com/watch?v=V6xEy6_2iTg "Community Demo - Setting up Azure DevOps Pipelines for SharePoint Framework solutions")
+
+### This is for my own reference when doing the demo
+
 Nodejs setup
 
 ```sh
