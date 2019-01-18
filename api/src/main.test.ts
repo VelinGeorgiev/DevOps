@@ -4,10 +4,6 @@ import server from "../src/main";
 
 describe('Node.js API tests', () => {
 
-  afterAll(()=> {
-    require('../src/main').stop();
-  })
-
   it('server successfully calls "/" path', (done: any) => {
 
     request(server).get('/').then((res: any) => {
